@@ -1,0 +1,21 @@
+.container {
+  display: flex;           
+  flex-direction: column;  
+  justify-content: flex-start; 
+  align-items: center;     
+  height: 100vh;          
+  padding: 16px;           
+  overflow-y: auto;       
+  box-sizing: border-box;  
+}
+
+/* page.css */
+.container {
+  position: relative;
+  transition: filter 0.3s ease;
+}
+
+.blurred {
+  filter: blur(4px);
+  pointer-events: none; /* Optional: Prevent interactions while loading */
+}
