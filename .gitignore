@@ -1,0 +1,6 @@
+BE/node_modules
+BE/.env
+BE/log/
+FE/node_modules
+FE/.env
+FE/.next
