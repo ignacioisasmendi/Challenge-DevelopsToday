@@ -1,7 +1,7 @@
 {
   "name": "challenge-backend",
   "version": "1.0.0",
-  "type":"module",
+  "type": "module",
   "description": "Challenge for full stack position",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "author": "Ignacio Isasmendi",
   "license": "ISC",
   "dependencies": {
+    "base-64": "^1.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "node-fetch": "^3.3.2"

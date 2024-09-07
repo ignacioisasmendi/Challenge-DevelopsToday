@@ -4,6 +4,7 @@ import { Box, Typography, Button, Paper } from '@mui/material';
 import Link from 'next/link';
 
 export default function BorderCountries({ borders }) {
+  
   return (
     <Paper elevation={3} sx={{ padding: 2, maxHeight: 300, overflowY: 'auto', marginTop: 4, borderRadius: '10px' }}>
       <Box sx={{ display: 'flex', flexDirection:'column', alignItems:'center', gap: 1 }}>
@@ -16,17 +17,23 @@ export default function BorderCountries({ borders }) {
             This country doesn't have borders.
           </Typography>
         ) : (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 2,
+              justifyContent: 'center', 
+            }}
+          >
             {borders.map((borderCountry) => (
-              <Button
-                key={borderCountry.countryCode}
-                variant="outlined"
-                sx={{ textTransform: 'capitalize' }}
-              >
-                <Link href={`/country/${borderCountry.countryCode}`}>
+              <Link key={borderCountry.countryCode} href={`/country/${borderCountry.countryCode}`}>
+                <Button
+                  variant="outlined"
+                  sx={{ textTransform: 'capitalize' }}
+                >
                   {borderCountry.commonName}
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             ))}
           </Box>
         )}

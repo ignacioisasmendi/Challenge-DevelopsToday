@@ -3,9 +3,7 @@ import * as React from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 
 export default function CountryDetails({ country }) {
-  // Destructure the selectedCountry prop to get country details
   const { name, flagUrl } = country;
-  console.log(country);
 
   return (
     <Paper 
@@ -19,10 +17,6 @@ export default function CountryDetails({ country }) {
         margin: '20px auto',
       }}
     >
-      <Typography variant="h5" component="h2" sx={{ flexGrow: 1 }}>
-        {name}
-      </Typography>
-
       <Box
         component="img"
         src={flagUrl} 
@@ -31,10 +25,14 @@ export default function CountryDetails({ country }) {
           height: 60, 
           width: 100, 
           objectFit: 'contain', 
-          marginLeft: 2, 
+          marginRight: 2, 
           borderRadius: '5px',
         }}
       />
+
+      <Typography variant="h5" component="h2" sx={{ flexGrow: 1 }}>
+        {name}
+      </Typography>
     </Paper>
   );
 }

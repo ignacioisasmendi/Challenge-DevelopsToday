@@ -12,18 +12,31 @@ const allCountries = async (req, res) => {
 
 
 const countryInfo = async (req, res) => {
-    try{
-      const countryCode = req.params.countryCode;
-      console.log("Buscando info..");
-      const countryInfo = await thirdParty.getCountryInfo(countryCode);
-      console.log("Info encontrada: ", countryInfo);
-      return res.status(200).json(countryInfo);
+  try {
+    const countryCode = req.params.countryCode;
+    const countryInfo = await thirdParty.getCountryInfo(countryCode);
+
+    if (!countryInfo) {
+      return res.status(404).json({
+        error: {
+          message: `Information for country code '${countryCode}' not found.`,
+          code: "COUNTRY_NOT_FOUND",
+        },
+      });
     }
-    catch(error){
-      console.error("Error al cargar el resultado de la búsqueda en la base de datos: ");
-      return res.status(500).json({ error: "Server error" });
-    }
-}
+
+    return res.status(200).json(countryInfo);
+  } catch (error) {
+    console.error("Error fetching country information:", error);
+    return res.status(500).json({
+      error: {
+        message: "Server error. Please try again later.",
+        code: "SERVER_ERROR",
+      },
+    });
+  }
+};
+
 
 export default {
   allCountries,

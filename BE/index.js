@@ -2,12 +2,14 @@
 import express, { json } from "express";
 import { config } from "dotenv";
 import countries from "./src/routes/countries.route.js";
+import auth from "./src/middlewares/auth.js";
 
 
 const app = express();
 config();
 
 app.use;
+app.use(auth)
 app.use(json());
 app.use("/api", countries);
 

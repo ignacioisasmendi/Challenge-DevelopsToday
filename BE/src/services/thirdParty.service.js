@@ -11,87 +11,82 @@ const getAllCountries = async () => {
 }
 
 const getCountryInfo = async (countryCode) => {
-  try {
-      const borderList = await getBorders(countryCode);
-      const country = await getFlag(countryCode);
-      const population = await getPopulation(country.iso3);
 
-      const countryDetails = {
-        name:country.name,
-        flagUrl: country.flag,
-        borders: borderList,
-        population: population
-      };
+  const borderList = await getBorders(countryCode);
+  const country = await getFlag(countryCode);
+  if (!country) {
+    return null;
+  }
+  const population = await getPopulation(country.iso3);
 
-      console.log(countryDetails);
-      
-      return countryDetails;
-  }
-  catch (error) {
-    return res.status(500).json({ error: "Error fetching info for country" });
-  }
+  const countryDetails = {
+    name:country.name,
+    flagUrl: country.flag,
+    borders: borderList,
+    population: population
+  };
+        
+  return countryDetails;
+  
 }
 
 const getPopulation = async (countryCode) => {
-  try {
-    const populationResponse = await fetch(`https://countriesnow.space/api/v0.1/countries/population`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ iso3: countryCode })
-    });
 
-    if (!populationResponse.ok) {
-      throw new Error('Failed to fetch population data');
+  const populationResponse = await fetch(`https://countriesnow.space/api/v0.1/countries/population`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ iso3: countryCode })
+  });
+
+  if (!populationResponse.ok) {
+    if (populationResponse.status === 404) {
+      return null;
+    }else{
+      throw new Error(`Failed to fetch borders for country code ${countryCode}. Status: ${populationResponse.status}`);
     }
-    const country = await populationResponse.json();
-    
-    return country.data.populationCounts;
+  }
 
-  }
-  catch (error) {
-    return res.status(500).json({ error: "Error fetching the population" });
-  }
+  const country = await populationResponse.json();
+  return country.data.populationCounts;
 }
 
 const getFlag = async (countryCode) => {
-  try {
-    console.log(countryCode);
-    const flagResponse = await fetch(`https://countriesnow.space/api/v0.1/countries/flag/images`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ iso2: countryCode })
-    });
+  const flagResponse = await fetch(`https://countriesnow.space/api/v0.1/countries/flag/images`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ iso2: countryCode })
+  });
 
-    if (!flagResponse.ok) {
-      throw new Error('Failed to fetch flag images');
+  if (!flagResponse.ok) {
+    if (flagResponse.status === 404) {
+      return null;
+    }else{
+      throw new Error(`Failed to fetch borders for country code ${countryCode}. Status: ${flagResponse.status}`);
     }
-
-    const country = await flagResponse.json();
-    return country.data;
-
   }
-  catch (error) {
-    return res.status(500).json({ error: "Error fetching the flag" });
-  }
+
+  const country = await flagResponse.json();
+  return country.data;
+
 }
 
 const getBorders = async (countryCode) => {
-  try {
-      const borderResponse = await fetch(`https://date.nager.at/api/v3/CountryInfo/${countryCode}`);
-      if (!borderResponse.ok) {
-        throw new Error('Failed to fetch border countries');
-      }
-      const borderCountries = await borderResponse.json();
-      return borderCountries.borders;
+  const borderResponse = await fetch(`https://date.nager.at/api/v3/CountryInfo/${countryCode}`);
 
+  if (!borderResponse.ok) {
+    if (borderResponse.status === 404) {
+      return null;
+    }else{
+      throw new Error(`Failed to fetch borders for country code ${countryCode}. Status: ${borderResponse.status}`);
+    }
   }
-  catch (error) {
-    return res.status(500).json({ error: "Error fetching borders" });
-  }
+
+  const borderCountries = await borderResponse.json();
+  return borderCountries.borders;
 }
 
 
