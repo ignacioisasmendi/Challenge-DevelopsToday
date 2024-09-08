@@ -3,11 +3,11 @@ import React from 'react';
 import { Box, Typography, Button, Paper } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-export default function NoCountryFound({error}) {
+export default function NoCountryFound({ error }) {
   const router = useRouter();
 
   const handleBack = () => {
-    router.back(); 
+    router.back();
   };
 
   return (

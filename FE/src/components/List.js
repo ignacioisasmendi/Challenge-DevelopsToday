@@ -1,5 +1,13 @@
-'use client'
-import { Card, CardContent, Typography, List, ListItem, ListItemText, Box } from '@mui/material';
+'use client';
+import {
+  Card,
+  CardContent,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Box,
+} from '@mui/material';
 import { styled } from '@mui/system';
 import Link from 'next/link';
 
@@ -21,7 +29,14 @@ const ScrollableList = styled(List)({
 
 export default function CountryList({ countries }) {
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 64px)' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: 'calc(100vh - 64px)',
+      }}
+    >
       <Card sx={{ width: '100%', maxWidth: 400, m: 2 }}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>

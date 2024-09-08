@@ -6,26 +6,26 @@ export default function CountryDetails({ country }) {
   const { name, flagUrl } = country;
 
   return (
-    <Paper 
-      elevation={3} 
+    <Paper
+      elevation={3}
       sx={{
-        display: 'flex', 
-        alignItems: 'center', 
+        display: 'flex',
+        alignItems: 'center',
         padding: 2,
-        borderRadius: '10px', 
+        borderRadius: '10px',
         maxWidth: 300,
         margin: '20px auto',
       }}
     >
       <Box
         component="img"
-        src={flagUrl} 
+        src={flagUrl}
         alt={`${name} Flag`}
         sx={{
-          height: 60, 
-          width: 100, 
-          objectFit: 'contain', 
-          marginRight: 2, 
+          height: 60,
+          width: 100,
+          objectFit: 'contain',
+          marginRight: 2,
           borderRadius: '5px',
         }}
       />

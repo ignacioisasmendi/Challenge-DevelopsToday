@@ -1,9 +1,9 @@
-.title{
+.title {
   text-align: center;
   margin: 48px;
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
